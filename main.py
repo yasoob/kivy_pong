@@ -4,18 +4,23 @@ from kivy.vector import Vector
 from kivy.clock import Clock
 from kivy.properties import NumericProperty, ReferenceListProperty,\
     ObjectProperty
+import time
 
 
 class PongPaddle(Widget):
     score = NumericProperty(0)
+    time_bounce = time.time()
 
     def bounce_ball(self, ball):
         if self.collide_widget(ball):
-            vx, vy = ball.velocity
-            offset = (ball.center_y - self.center_y) / (self.height / 2)
-            bounced = Vector(-1 * vx, vy)
-            vel = bounced * 1.1
-            ball.velocity = vel.x, vel.y + offset
+            print "Rounded Time: ", round(time.time() - self.time_bounce)
+            if round(time.time() - self.time_bounce) > 0:
+                vx, vy = ball.velocity
+                offset = (ball.center_y - self.center_y) / (self.height / 2)
+                bounced = Vector(-1 * vx, vy)
+                vel = bounced * 1.1
+                ball.velocity = vel.x, vel.y + offset
+            self.time_bounce = time.time()
 
 
 class PongBall(Widget):
