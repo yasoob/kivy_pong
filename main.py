@@ -13,14 +13,27 @@ class PongPaddle(Widget):
 
     def bounce_ball(self, ball):
         if self.collide_widget(ball):
-            print "Rounded Time: ", round(time.time() - self.time_bounce)
-            if round(time.time() - self.time_bounce) > 0:
-                vx, vy = ball.velocity
-                offset = (ball.center_y - self.center_y) / (self.height / 2)
+            # print "Rounded Time: ", round(time.time() - self.time_bounce)
+            # if round(time.time() - self.time_bounce) > 0:
+            # if (ball.center_x - 50 > -10) and (ball.center_x + 50 < 0)
+            vx, vy = ball.velocity
+            offset = (ball.center_y - self.center_y) / (self.height / 2)
+            print "\n\nPoints:"
+            total_width = self.x + 200
+            print "Ball Position: ",ball.pos
+            print "Ball Center-y: ",ball.center_y-50
+            print "Ball Center-x  ",ball.center_x-50
+            print "Ball Center-x  ",ball.center_x+50
+            print "Self Center-y  ",self.center_y+200
+            print "Self Center-x  ",self.center_x+25
+            print "Self Center-x  ",self.center_x-25
+            print "Total Width:   ",total_width
+            print "Paddle x       ",self.x
+            if (ball.center_y+50 < total_width) or (ball.center_y-50 > self.x-200):
                 bounced = Vector(-1 * vx, vy)
                 vel = bounced * 1.1
                 ball.velocity = vel.x, vel.y + offset
-            self.time_bounce = time.time()
+#           self.time_bounce = time.time()
 
 
 class PongBall(Widget):
